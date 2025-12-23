@@ -15,16 +15,16 @@ const projects = [
     "Plus membership system for premium users"
   ],
   images: [
-    "/Portfolio/projects/nexusmart-1.png",
-    "/Portfolio/projects/nexusmart-2.png",
-    "/Portfolio/projects/nexusmart-3.png",
-    "/Portfolio/projects/nexusmart-4.png",
-    "/Portfolio/projects/nexusmart-5.png",
-    "/Portfolio/projects/nexusmart-6.png",
-    "/Portfolio/projects/nexusmart-7.png",
-    "/Portfolio/projects/nexusmart-10.png",
-    "/Portfolio/projects/nexusmart-8.png",
-    "/Portfolio/projects/nexusmart-9.png"
+    "/portfolio/projects/nexusmart-1.png",
+    "/portfolio/projects/nexusmart-2.png",
+    "/portfolio/projects/nexusmart-3.png",
+    "/portfolio/projects/nexusmart-4.png",
+    "/portfolio/projects/nexusmart-5.png",
+    "/portfolio/projects/nexusmart-6.png",
+    "/portfolio/projects/nexusmart-7.png",
+    "/portfolio/projects/nexusmart-10.png",
+    "/portfolio/projects/nexusmart-8.png",
+    "/portfolio/projects/nexusmart-9.png"
 
   ],
   tags: [
@@ -52,7 +52,7 @@ const projects = [
       "Modern and vibrant user interface",
       "Secure user authentication with JWT"
     ],
-    images: ["/Portfolio/projects/project1.png", "/Portfolio/projects/project1-1.png","/Portfolio/projects/project1-2.png","/Portfolio/projects/project1-3.png"], 
+    images: ["/portfolio/projects/project1.png", "/portfolio/projects/project1-1.png","/portfolio/projects/project1-2.png","/portfolio/projects/project1-3.png"],
     tags: ["TypeSCript","React","Node.js","Express.js","MongoDB","TailwindCSS","JWT Authentication"],
     githubUrl: "https://github.com/GVBharadwaj18/SecondBrain",
     liveUrl: "#",
@@ -70,13 +70,13 @@ const projects = [
     "Supabase for real-time database and storage"
   ],
   images: [
-    "/Portfolio/projects/h-1.png",
-    "/Portfolio/projects/h-2.png",
-    "/Portfolio/projects/h-3.png",
-    "/Portfolio/projects/h-4.png",
-    "/Portfolio/projects/h-5.png",
-    "/Portfolio/projects/h-6.png",
-    "/Portfolio/projects/h-7.png"
+    "/portfolio/projects/h-1.png",
+    "/portfolio/projects/h-2.png",
+    "/portfolio/projects/h-3.png",
+    "/portfolio/projects/h-4.png",
+    "/portfolio/projects/h-5.png",
+    "/portfolio/projects/h-6.png",
+    "/portfolio/projects/h-7.png"
 
   ],
   tags: [
@@ -104,7 +104,7 @@ const projects = [
       "Discount logic for VIP and Regular customers",
       "CSV-based data persistence"
     ],
-    images: ["/Portfolio/projects/project2.png", "/Portfolio/projects/project2.png"],
+    images: ["/portfolio/projects/project2.png", "/portfolio/projects/project2.png"],
     tags: ["C++", "OOP", "File Handling","CSV"],
     githubUrl: "https://github.com/GVBharadwaj18/MovieTicketBookingSystem",
     liveUrl: "",
@@ -122,11 +122,11 @@ const projects = [
     "Multi-agent architecture for complex problem solving"
   ],
   images: [
-    "/Portfolio/projects/p-5.png",
-    "/Portfolio/projects/p-1.png",
-    "/Portfolio/projects/p-2.png",
-    "/Portfolio/projects/p-3.png",
-    "/Portfolio/projects/p-4.png"
+    "/portfolio/projects/p-5.png",
+    "/portfolio/projects/p-1.png",
+    "/portfolio/projects/p-2.png",
+    "/portfolio/projects/p-3.png",
+    "/portfolio/projects/p-4.png"
   ],
   tags: [
     "Next.js",

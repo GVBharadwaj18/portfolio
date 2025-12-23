@@ -99,7 +99,7 @@ export const HeroSection = () => {
               {/* Photo Container */}
               <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl z-10 group">
                  <img 
-                   src="/Portfolio/projects/hero-image.avif" 
+                   src="/portfolio/projects/hero-image.avif" 
                    alt="AI Technology" 
                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                  />

@@ -1,0 +1,206 @@
+@import "tailwindcss";
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap'); */
+
+@theme{
+  --color-border:hsl(var(--border));
+  --color-background:hsl(var(--background));
+  --color-foreground:hsl(var(--foreground));
+
+  --color-primary:hsl(var(--primary));
+  --color-primary-foreground:hsl(var(--primary-foreground));
+
+  --color-card:hsl(var(--card));
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-subtle: pulse-subtle 4s ease-in-out infinite;
+  --animate-fade-in: fade-in 0.7s ease-out forwards;
+  --animate-fade-in-delay-1: fade-in 0.7s ease-out 0.2s forwards;
+  --animate-fade-in-delay-2: fade-in 0.7s ease-out 0.4s forwards;
+  --animate-fade-in-delay-3: fade-in 0.7s ease-out 0.6s forwards;
+  --animate-fade-in-delay-4: fade-in 0.7s ease-out 0.8s forwards;
+
+  --animate-spin-slow: spin 20s linear infinite;
+  --animate-spin-slow-reverse: spin-reverse 20s linear infinite;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin-reverse {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  @keyframes pulse-subtle {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    @apply antialiased;
+  }
+  
+  .font-signature {
+    font-family: 'Dancing Script', cursive;
+  }
+  
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --muted-foreground: 222 10% 50%;
+    --card: 0 0% 100%;
+
+    /* Vibrant Violet/Purple Shade */
+    --primary: 270 95% 60%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214 32% 91%;
+}
+  }
+
+  .dark {
+    --background: 222 47% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted-foreground: 213 15% 70%;
+    /* Darker, richer card background for better contrast */
+    --card: 222 47% 10%; 
+
+    /* Vibrant Violet/Purple Shade */
+    --primary: 270 95% 60%;
+    --primary-foreground: 213 31% 91%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --border: 217 33% 20%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground transition-colors duration-300 font-sans;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+
+@utility container{
+  margin-inline: auto;
+  padding-inline: 2rem;
+
+  @media (width >= 640px){
+    max-width: 640px;
+  }
+  @media (width >= 768px){
+    max-width: 768px;
+  }
+  @media (width >= 1024px){
+    max-width: 1024px;
+  }
+  @media (width >= 1280px){
+    max-width: 1280px;
+  }
+  @media (width >= 1400px){
+    max-width: 1400px;
+  }
+
+}
+
+@utility text-glow{
+  @apply relative;
+  text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+}
+
+@utility card-hover{
+  @apply transition-all duration-300 hover:scale-[1.02];
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+}
+
+.dark .card-hover:hover {
+   box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+   border-color: hsl(var(--primary) / 0.3);
+}
+
+/* Project Card Specific Shadow */
+.project-card-shadow {
+  transition: all 0.3s ease;
+}
+.project-card-shadow:hover {
+   box-shadow: 0 0 30px hsl(var(--primary) / 0.4);
+   border-color: hsl(var(--primary) / 0.5);
+}
+
+@utility gradient-border{
+  @apply relative rounded-xl border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300;
+}
+
+.dark .gradient-border {
+  @apply border-white/10;
+}
+
+@utility cosmic-button{
+  @apply px-6 py-2 rounded-full bg-primary text-primary-foreground font-medium 
+         transition-all duration-300 hover:shadow-[0_0_15px_hsl(var(--primary)/0.6)]
+         hover:scale-105 active:scale-95;
+}
+
+@utility font-signature {
+    font-family: 'Playfair Display', serif;
+}
+
+@utility section-title{
+  @apply text-3xl md:text-5xl font-bold mb-16 text-center;
+}
+
+#root{
+  max-width:100%;
+  margin:0 auto;
+  padding:0;
+  text-align:center;
+}
+

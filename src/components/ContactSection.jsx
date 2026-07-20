@@ -10,10 +10,13 @@ import {
 import { cn } from "../lib/utils";
 import { useToast } from "../hooks/usetoast";
 import { useState } from "react";
+import { X } from "lucide-react";
 
 export const ContactSection=()=>{
-    const {toast}=useToast();
     const [isSubmitting,setIsSubmitting]=useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [modalConfig, setModalConfig] = useState({ title: "", message: "", type: "success" });
+
     const handleSubmit=async (e)=>{
         e.preventDefault();
         setIsSubmitting(true);
@@ -31,24 +34,28 @@ export const ContactSection=()=>{
             });
             
             if (response.ok) {
-                toast({
-                    title: "Message sent!",
-                    description: "Thank you for your message. I'll get back to you soon."
+                setModalConfig({
+                    title: "Message Sent Successfully! 🎉",
+                    message: "Thank you for reaching out! Your message has been successfully sent. I will get back to you as soon as possible.",
+                    type: "success"
                 });
+                setShowModal(true);
                 formEl.reset();
             } else {
-                toast({
-                    title: "Error sending message",
-                    description: "Something went wrong. Please try again later or email me directly at gvbharadwaj3705@gmail.com.",
-                    variant: "destructive"
+                setModalConfig({
+                    title: "Submission Error ✕",
+                    message: "Something went wrong while sending your message. Please try again later or email me directly at gvbharadwaj3705@gmail.com.",
+                    type: "error"
                 });
+                setShowModal(true);
             }
         } catch (error) {
-            toast({
-                title: "Error sending message",
-                description: "Failed to connect to the email service. Please check your network or email me directly.",
-                variant: "destructive"
+            setModalConfig({
+                title: "Network Error ✕",
+                message: "Failed to connect to the email service. Please check your internet connection or email me directly at gvbharadwaj3705@gmail.com.",
+                type: "error"
             });
+            setShowModal(true);
         } finally {
             setIsSubmitting(false);
         }
@@ -219,6 +226,51 @@ export const ContactSection=()=>{
           </div>
         </div>
       </div>
+
+      {/* Success/Error Popup Modal */}
+      {showModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in"
+          onClick={() => setShowModal(false)}
+        >
+          <div 
+            className="bg-card border border-primary/20 p-8 rounded-2xl max-w-md w-full shadow-2xl relative animate-scale-in text-center flex flex-col items-center gap-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary transition-colors"
+              aria-label="Close modal"
+            >
+              <X size={20} className="text-foreground" />
+            </button>
+
+            {modalConfig.type === "success" ? (
+              <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 flex items-center justify-center text-3xl font-bold border border-emerald-500/20">
+                ✓
+              </div>
+            ) : (
+              <div className="w-16 h-16 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-3xl font-bold border border-red-500/20">
+                ✕
+              </div>
+            )}
+
+            <div className="space-y-2">
+              <h3 className="text-2xl font-bold text-foreground">{modalConfig.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {modalConfig.message}
+              </p>
+            </div>
+
+            <button
+              onClick={() => setShowModal(false)}
+              className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition-opacity active:scale-[0.98]"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

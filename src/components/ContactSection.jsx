@@ -14,16 +14,44 @@ import { useState } from "react";
 export const ContactSection=()=>{
     const {toast}=useToast();
     const [isSubmitting,setIsSubmitting]=useState(false);
-    const handleSubmit=(e)=>{
+    const handleSubmit=async (e)=>{
         e.preventDefault();
         setIsSubmitting(true);
-        setTimeout(()=>{
+        const formEl = e.target;
+        const formData = new FormData(formEl);
+        formData.append("subject", "New message from Portfolio Contact Form");
+
+        try {
+            const response = await fetch("https://formspree.io/f/gvbharadwaj3705@gmail.com", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                toast({
+                    title: "Message sent!",
+                    description: "Thank you for your message. I'll get back to you soon."
+                });
+                formEl.reset();
+            } else {
+                toast({
+                    title: "Error sending message",
+                    description: "Something went wrong. Please try again later or email me directly at gvbharadwaj3705@gmail.com.",
+                    variant: "destructive"
+                });
+            }
+        } catch (error) {
             toast({
-                title:"Message sent!",
-                description:"Thank you for yout message.I'll get back to you soon."
-            })
+                title: "Error sending message",
+                description: "Failed to connect to the email service. Please check your network or email me directly.",
+                variant: "destructive"
+            });
+        } finally {
             setIsSubmitting(false);
-        },1500);
+        }
     };
     return (
     <section id="contact" className="py-24 px-4 relative bg-secondary/30 border-t border-border/50">
@@ -116,14 +144,13 @@ export const ContactSection=()=>{
 
           <div
             className="bg-card p-8 rounded-2xl shadow-lg border border-primary/20 shadow-primary/5 transition-all duration-300 focus-within:border-primary focus-within:shadow-[0_0_25px_hsl(var(--primary)/0.2)]"
-            onSubmit={handleSubmit}
           >
             <div className="text-center mb-8">
               <h3 className="text-2xl font-semibold mb-2"> Let's get in Touch</h3>
               <p className="text-muted-foreground">Ready to cook something? 😉</p>
             </div>
 
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label
                   htmlFor="name"

@@ -3,47 +3,112 @@ import { useState, useEffect } from "react";
 
 const projects = [
   {
-  id: 1,
-  title: "NexusMart",
-  description:
-    "NexusMart is a full-stack multi-vendor e-commerce platform where sellers can create their own stores and manage products, while customers enjoy secure checkout with Stripe and Cash on Delivery.",
-  features: [
-    "AI-powered product auto-generation using Gemini API",
-    "Role-based dashboards for sellers and admins",
-    "Secure checkout with Stripe and Cash on Delivery",
-    "Coupon management and analytics",
-    "Plus membership system for premium users"
-  ],
-  images: [
-    "/portfolio/projects/nexusmart-1.png",
-    "/portfolio/projects/nexusmart-2.png",
-    "/portfolio/projects/nexusmart-3.png",
-    "/portfolio/projects/nexusmart-4.png",
-    "/portfolio/projects/nexusmart-5.png",
-    "/portfolio/projects/nexusmart-6.png",
-    "/portfolio/projects/nexusmart-7.png",
-    "/portfolio/projects/nexusmart-10.png",
-    "/portfolio/projects/nexusmart-8.png",
-    "/portfolio/projects/nexusmart-9.png"
-
-  ],
-  tags: [
-    "Next.js",
-    "React",
-    "TailwindCSS",
-    "PostgreSQL(Neon)",
-    "Prisma",
-    "Stripe",
-    "Redux Toolkit",
-    "Clerk Auth",
-    "Gemini API",
-    "Recharts"
-  ],
-  githubUrl: "https://github.com/GVBharadwaj18/nexusmart", 
-  liveUrl: "https://nexusmart-swart.vercel.app/"
-},
+    id: 1,
+    title: "BankingAI",
+    description: "A developer demo chatbot for banking workflows featuring semantic routing, guided slot collection, and tool-driven answers.",
+    features: [
+      "Semantic intent routing across loan, credit card, savings, forex, policy, and fraud scenarios",
+      "Guided slot collection flow to request missing user information dynamically",
+      "Domain-specific tool execution for EMI calculations, card recommendations, and policy lookup",
+      "Stateful orchestration using LangGraph and structured slot extraction powered by Groq LLM",
+      "Session-based conversation memory management using RedisVL MessageHistory",
+      "Containerized local development setup orchestrated using Docker Compose"
+    ],
+    images: [
+      "/portfolio/projects/bankingai-1.png",
+      "/portfolio/projects/bankingai-2.png",
+      "/portfolio/projects/bankingai-3.png",
+      "/portfolio/projects/bankingai-4.png",
+      "/portfolio/projects/bankingai-5.png"
+    ],
+    tags: [
+      "FastAPI",
+      "LangGraph",
+      "RedisVL",
+      "Groq AI",
+      "Next.js",
+      "React",
+      "TypeScript",
+      "TailwindCSS",
+      "Docker"
+    ],
+    githubUrl: "https://github.com/GVBharadwaj18/BankingAI",
+    liveUrl: "https://apexbank-bankingai.up.railway.app/"
+  },
   {
     id: 2,
+    title: "Diagno",
+    description: "An AI-powered multi-disease diagnostic platform designed to analyze and predict Heart Disease, Diabetes, Lung Cancer, and Breast Cancer.",
+    features: [
+      "Predictive machine learning models (Logistic Regression, SVM) and CNN-based image classification",
+      "Automated extraction of clinical parameters from medical reports using PyMuPDF",
+      "Leaflet-based interactive maps for local diagnostic clinic and testing center locations",
+      "Dynamic, client-side diagnostic PDF report generation using pdf-lib",
+      "Secure user sessions with JWT access/refresh token rotation and bcrypt password hashing",
+      "Modern dark-mode glassmorphism interface styled with custom CSS and Styled Components"
+    ],
+    images: [
+      "/portfolio/projects/diagno-1.png",
+      "/portfolio/projects/diagno-2.png",
+      "/portfolio/projects/diagno-3.png",
+      "/portfolio/projects/diagno-4.png",
+      "/portfolio/projects/diagno-5.png",
+      "/portfolio/projects/diagno-6.png"
+    ],
+    tags: [
+      "React",
+      "Express.js",
+      "MongoDB",
+      "Python",
+      "Machine Learning",
+      "JWT Auth",
+      "pdf-lib",
+      "Leaflet"
+    ],
+    githubUrl: "https://github.com/GVBharadwaj18/Diagno",
+    liveUrl: "https://diagno-ochre.vercel.app/"
+  },
+  {
+    id: 3,
+    title: "NexusMart",
+    description:
+      "NexusMart is a full-stack multi-vendor e-commerce platform where sellers can create their own stores and manage products, while customers enjoy secure checkout with Stripe and Cash on Delivery.",
+    features: [
+      "AI-powered product auto-generation using Gemini API",
+      "Role-based dashboards for sellers and admins",
+      "Secure checkout with Stripe and Cash on Delivery",
+      "Coupon management and analytics",
+      "Plus membership system for premium users"
+    ],
+    images: [
+      "/portfolio/projects/nexusmart-1.png",
+      "/portfolio/projects/nexusmart-2.png",
+      "/portfolio/projects/nexusmart-3.png",
+      "/portfolio/projects/nexusmart-4.png",
+      "/portfolio/projects/nexusmart-5.png",
+      "/portfolio/projects/nexusmart-6.png",
+      "/portfolio/projects/nexusmart-7.png",
+      "/portfolio/projects/nexusmart-10.png",
+      "/portfolio/projects/nexusmart-8.png",
+      "/portfolio/projects/nexusmart-9.png"
+    ],
+    tags: [
+      "Next.js",
+      "React",
+      "TailwindCSS",
+      "PostgreSQL(Neon)",
+      "Prisma",
+      "Stripe",
+      "Redux Toolkit",
+      "Clerk Auth",
+      "Gemini API",
+      "Recharts"
+    ],
+    githubUrl: "https://github.com/GVBharadwaj18/nexusmart",
+    liveUrl: "https://nexusmart-swart.vercel.app/"
+  },
+  {
+    id: 4,
     title: "SecondBrain",
     description: "SecondBrain is a vibrant and modern web application to save, organize, and share your favorite content. With support for YouTube, Twitter (X), Instagram, and LinkedIn links, SecondBrain becomes your personal hub for managing social media and content links.",
     features: [
@@ -52,51 +117,50 @@ const projects = [
       "Modern and vibrant user interface",
       "Secure user authentication with JWT"
     ],
-    images: ["/portfolio/projects/project1.png", "/portfolio/projects/project1-1.png","/portfolio/projects/project1-2.png","/portfolio/projects/project1-3.png"],
-    tags: ["TypeSCript","React","Node.js","Express.js","MongoDB","TailwindCSS","JWT Authentication"],
+    images: ["/portfolio/projects/project1.png", "/portfolio/projects/project1-1.png", "/portfolio/projects/project1-2.png", "/portfolio/projects/project1-3.png"],
+    tags: ["TypeSCript", "React", "Node.js", "Express.js", "MongoDB", "TailwindCSS", "JWT Authentication"],
     githubUrl: "https://github.com/GVBharadwaj18/SecondBrain",
     liveUrl: "#",
   },
   {
-  id: 3,
-  title: "Hackathon 2026 – NIT Silchar",
-  description:
-    "Hackathon 2026 by NIT Silchar is a full-featured hackathon management platform designed to host large-scale competitive events.",
-  features: [
-    "Secure authentication and team creation",
-    "Multi-round contests (MCQs, coding challenges, project submissions)",
-    "Powerful admin dashboard for managing rounds and results",
-    "Judge0 integration for secure code execution",
-    "Supabase for real-time database and storage"
-  ],
-  images: [
-    "/portfolio/projects/h-1.png",
-    "/portfolio/projects/h-2.png",
-    "/portfolio/projects/h-3.png",
-    "/portfolio/projects/h-4.png",
-    "/portfolio/projects/h-5.png",
-    "/portfolio/projects/h-6.png",
-    "/portfolio/projects/h-7.png"
-
-  ],
-  tags: [
-    "React",
-    "TypeScript",
-    "Vite",
-    "Supabase",
-    "PostgreSQL",
-    "TailwindCSS",
-    "Judge0 API",
-    "React Router",
-    "Context API"
-  ],
-  githubUrl: "https://github.com/GVBharadwaj18/hack-sphere",
-  liveUrl: "https://hack-sphere-six.vercel.app/"
-},
+    id: 5,
+    title: "Hackathon 2026 – NIT Silchar",
+    description:
+      "Hackathon 2026 by NIT Silchar is a full-featured hackathon management platform designed to host large-scale competitive events.",
+    features: [
+      "Secure authentication and team creation",
+      "Multi-round contests (MCQs, coding challenges, project submissions)",
+      "Powerful admin dashboard for managing rounds and results",
+      "Judge0 integration for secure code execution",
+      "Supabase for real-time database and storage"
+    ],
+    images: [
+      "/portfolio/projects/h-1.png",
+      "/portfolio/projects/h-2.png",
+      "/portfolio/projects/h-3.png",
+      "/portfolio/projects/h-4.png",
+      "/portfolio/projects/h-5.png",
+      "/portfolio/projects/h-6.png",
+      "/portfolio/projects/h-7.png"
+    ],
+    tags: [
+      "React",
+      "TypeScript",
+      "Vite",
+      "Supabase",
+      "PostgreSQL",
+      "TailwindCSS",
+      "Judge0 API",
+      "React Router",
+      "Context API"
+    ],
+    githubUrl: "https://github.com/GVBharadwaj18/hack-sphere",
+    liveUrl: "https://hack-sphere-six.vercel.app/"
+  },
   {
-    id: 4,
+    id: 6,
     title: "Movie Ticket Booking System",
-    description:"A C++ console-based application that simulates a movie ticket booking system. Users can browse movies across multiple theaters, book and cancel tickets, and get discounts based on customer type (VIP or Regular). Booking details are stored in a CSV file for future reference.",
+    description: "A C++ console-based application that simulates a movie ticket booking system. Users can browse movies across multiple theaters, book and cancel tickets, and get discounts based on customer type (VIP or Regular). Booking details are stored in a CSV file for future reference.",
     features: [
       "Console-based user interface",
       "Browse movies across multiple theaters",
@@ -105,43 +169,42 @@ const projects = [
       "CSV-based data persistence"
     ],
     images: ["/portfolio/projects/project2.png", "/portfolio/projects/project2.png"],
-    tags: ["C++", "OOP", "File Handling","CSV"],
+    tags: ["C++", "OOP", "File Handling", "CSV"],
     githubUrl: "https://github.com/GVBharadwaj18/MovieTicketBookingSystem",
     liveUrl: "",
   },
   {
-  id: 5,
-  title: "Pharma-AI",
-  description:
-    "Pharma-AI is an API-first, agentic AI platform designed to identify pharmaceutical molecule repurposing opportunities.",
-  features: [
-    "Orchestrates a master agent and six specialized domain agents",
-    "Synthesizes insights into actionable opportunities",
-    "Generates professional, automated PDF reports",
-    "Designed for seamless API integration at scale",
-    "Multi-agent architecture for complex problem solving"
-  ],
-  images: [
-    "/portfolio/projects/p-5.png",
-    "/portfolio/projects/p-1.png",
-    "/portfolio/projects/p-2.png",
-    "/portfolio/projects/p-3.png",
-    "/portfolio/projects/p-4.png"
-  ],
-  tags: [
-    "Next.js",
-    "TypeScript",
-    "Agentic AI",
-    "Multi-Agent Systems",
-    "API Design",
-    "PDF Generation",
-    "Node.js",
-    "TailwindCSS"
-  ],
-  githubUrl: "https://github.com/GVBharadwaj18/pharma-ai",
-  liveUrl: ""
-}
-
+    id: 7,
+    title: "Pharma-AI",
+    description:
+      "Pharma-AI is an API-first, agentic AI platform designed to identify pharmaceutical molecule repurposing opportunities.",
+    features: [
+      "Orchestrates a master agent and six specialized domain agents",
+      "Synthesizes insights into actionable opportunities",
+      "Generates professional, automated PDF reports",
+      "Designed for seamless API integration at scale",
+      "Multi-agent architecture for complex problem solving"
+    ],
+    images: [
+      "/portfolio/projects/p-5.png",
+      "/portfolio/projects/p-1.png",
+      "/portfolio/projects/p-2.png",
+      "/portfolio/projects/p-3.png",
+      "/portfolio/projects/p-4.png"
+    ],
+    tags: [
+      "Next.js",
+      "TypeScript",
+      "Agentic AI",
+      "Multi-Agent Systems",
+      "API Design",
+      "PDF Generation",
+      "Node.js",
+      "TailwindCSS"
+    ],
+    githubUrl: "https://github.com/GVBharadwaj18/pharma-ai",
+    liveUrl: ""
+  }
 ];
 
 const ProjectCard = ({ project, onClick }) => {
@@ -160,7 +223,7 @@ const ProjectCard = ({ project, onClick }) => {
   };
 
   return (
-    <div 
+    <div
       onClick={onClick}
       className="group bg-card rounded-lg overflow-hidden shadow-xs project-card-shadow flex flex-col h-full border border-border/50 cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
     >
@@ -192,7 +255,7 @@ const ProjectCard = ({ project, onClick }) => {
 
       <div className="p-6 flex flex-col flex-grow text-left">
         <h3 className="text-xl font-bold mb-3 h-14 overflow-hidden flex items-center text-foreground group-hover:text-primary transition-colors line-clamp-2"> {project.title}</h3>
-        
+
         <div className="flex flex-wrap gap-2 mb-4 min-h-[32px]">
           {project.tags.slice(0, 3).map((tag, index) => (
             <span
@@ -212,10 +275,10 @@ const ProjectCard = ({ project, onClick }) => {
         <p className="text-muted-foreground text-sm mb-6 flex-grow leading-relaxed line-clamp-3">
           {project.description}
         </p>
-        
+
         <div className="mt-auto flex gap-3 pt-4 border-t border-border/50 w-full">
           <span className="text-primary text-sm font-medium flex items-center gap-1 group-hover:underline">
-             View Details <ArrowRight size={16} />
+            View Details <ArrowRight size={16} />
           </span>
         </div>
       </div>
@@ -238,7 +301,7 @@ const ProjectModal = ({ project, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in" onClick={onClose}>
-      <div 
+      <div
         className="bg-card border border-primary/20 rounded-2xl max-w-4xl w-full shadow-2xl relative animate-scale-in max-h-[90vh] overflow-y-auto"
         onClick={e => e.stopPropagation()}
       >
@@ -252,12 +315,12 @@ const ProjectModal = ({ project, onClose }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
           {/* Image Gallery */}
           <div className="relative h-64 md:h-full bg-black/5 min-h-[300px] flex items-center justify-center p-4">
-             <img
+            <img
               src={project.images[currentImageIndex]}
               alt={project.title}
               className="w-full h-full object-contain object-center rotate-0"
             />
-             {project.images.length > 1 && (
+            {project.images.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
@@ -273,7 +336,7 @@ const ProjectModal = ({ project, onClose }) => {
                 </button>
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                   {project.images.map((_, idx) => (
-                    <div 
+                    <div
                       key={idx}
                       className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-white w-4' : 'bg-white/50'}`}
                     />
@@ -286,7 +349,7 @@ const ProjectModal = ({ project, onClose }) => {
           {/* Content */}
           <div className="p-8 flex flex-col text-left">
             <h2 className="text-3xl font-bold mb-4">{project.title}</h2>
-            
+
             <div className="flex flex-wrap gap-2 mb-6">
               {project.tags.map((tag, index) => (
                 <span
@@ -325,13 +388,13 @@ const ProjectModal = ({ project, onClose }) => {
                 <Github size={20} /> Source Code
               </a>
               {project.liveUrl && (
-                 <a
-                 href={project.liveUrl}
-                 target="_blank"
-                 className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-primary text-primary font-medium transition-all duration-300 hover:bg-primary/10"
-               >
-                 <ExternalLink size={20} /> Live Demo
-               </a>
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-primary text-primary font-medium transition-all duration-300 hover:bg-primary/10"
+                >
+                  <ExternalLink size={20} /> Live Demo
+                </a>
               )}
             </div>
           </div>
@@ -342,18 +405,18 @@ const ProjectModal = ({ project, onClose }) => {
 };
 
 export const ProjectsSection = () => {
-    const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
-    useEffect(() => {
-      if (selectedProject) {
-        const prev = document.body.style.overflow;
-        document.body.style.overflow = 'hidden';
-        return () => { document.body.style.overflow = prev || ''; };
-      }
-      return undefined;
-    }, [selectedProject]);
+  useEffect(() => {
+    if (selectedProject) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => { document.body.style.overflow = prev || ''; };
+    }
+    return undefined;
+  }, [selectedProject]);
 
-    return (
+  return (
     <section id="projects" className="py-24 px-4 relative">
       <div className="container justify-center mx-auto max-w-6xl">
         <h2 className="section-title">
@@ -367,9 +430,9 @@ export const ProjectsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-stretch">
           {projects.map((project, key) => (
-            <ProjectCard 
-              key={key} 
-              project={project} 
+            <ProjectCard
+              key={key}
+              project={project}
               onClick={() => setSelectedProject(project)}
             />
           ))}
@@ -388,9 +451,9 @@ export const ProjectsSection = () => {
 
       {/* Project Modal */}
       {selectedProject && (
-        <ProjectModal 
-          project={selectedProject} 
-          onClose={() => setSelectedProject(null)} 
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
         />
       )}
     </section>

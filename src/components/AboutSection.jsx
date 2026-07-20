@@ -1,4 +1,4 @@
-import { Brain, Briefcase, Code } from "lucide-react";
+import { Brain, Briefcase, Code, Sparkles } from "lucide-react";
 import profilePic from "../assets/profile.jpg";
 
 export const AboutSection = () => {
@@ -51,7 +51,7 @@ export const AboutSection = () => {
         <div className="mt-20">
             <h3 className="text-2xl md:text-3xl font-bold text-center mb-12">What I <span className="text-primary">Do</span></h3>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {/* Card 1 */}
                 <div className="gradient-border p-6 card-hover bg-background/40 backdrop-blur-sm h-full group">
                     <div className="flex flex-col items-center text-center gap-4">
@@ -61,7 +61,7 @@ export const AboutSection = () => {
                         <div>
                             <h4 className="font-semibold text-xl mb-3">Full-Stack Development</h4>
                             <p className="text-muted-foreground leading-relaxed">
-                                Designing and building scalable, responsive web applications using modern technologies like React, Node.js, and Next.js. Focused on clean architecture, performance optimization, reusable components, and seamless frontend–backend integration, with a growing interest in AI-powered tools and APIs.
+                                Designing and building scalable, responsive web applications using modern technologies like React, Node.js, and Next.js. Focused on clean architecture, performance optimization, reusable components, and seamless frontend–backend integration.
                             </p>
                         </div>
                     </div>
@@ -76,7 +76,7 @@ export const AboutSection = () => {
                         <div>
                             <h4 className="font-semibold text-xl mb-3">Core CS & Problem Solving</h4>
                             <p className="text-muted-foreground leading-relaxed">
-                                Solving Data Structures and Algorithms problems to strengthen logical thinking and optimization skills, while applying solid Operating Systems knowledge—processes, threads, memory management, scheduling, and concurrency—to write efficient, reliable, and system-aware software.
+                                Solving Data Structures and Algorithms problems to strengthen logical thinking and optimization skills, while applying solid Operating Systems knowledge—processes, threads, memory management, scheduling, and concurrency—to write efficient software.
                             </p>
                         </div>
                     </div>
@@ -86,12 +86,27 @@ export const AboutSection = () => {
                 <div className="gradient-border p-6 card-hover bg-background/40 backdrop-blur-sm h-full group">
                     <div className="flex flex-col items-center text-center gap-4">
                          <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
+                            <Sparkles className="h-8 w-8 text-primary" />
+                        </div>
+                        <div>
+                            <h4 className="font-semibold text-xl mb-3">AI & Agentic Systems</h4>
+                            <p className="text-muted-foreground leading-relaxed">
+                                Exploring and building intelligent workflows, autonomous AI agents, and conversational interfaces. Experimenting with semantic routing, task planning, and reasoning-driven applications to design smart, context-aware web solutions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Card 4 */}
+                <div className="gradient-border p-6 card-hover bg-background/40 backdrop-blur-sm h-full group">
+                    <div className="flex flex-col items-center text-center gap-4">
+                         <div className="p-4 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
                             <Briefcase className="h-8 w-8 text-primary" />
                         </div>
                         <div>
-                            <h4 className="font-semibold text-xl mb-3">Project Management & Execution</h4>
+                            <h4 className="font-semibold text-xl mb-3">Project Execution</h4>
                             <p className="text-muted-foreground leading-relaxed">
-                                Planning and executing projects with a focus on clean implementation, maintainability, and user impact. Experienced in breaking down complex problems, following agile practices, and continuously exploring AI-assisted workflows to improve development efficiency.
+                                Planning and executing projects with a focus on clean implementation, maintainability, and user impact. Experienced in breaking down complex problems, following agile practices, and continuously exploring AI-assisted workflows.
                             </p>
                         </div>
                     </div>

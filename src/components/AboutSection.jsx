@@ -24,8 +24,13 @@ export const AboutSection = () => {
                <a href="#contact" className="px-8 py-3 rounded-full bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/25">
                 Get In Touch
               </a>
-              <a href="#" className="px-8 py-3 rounded-full border-2 border-primary text-primary font-medium hover:bg-primary/10 transition-all">
-                Download CV
+              <a 
+                href={import.meta.env.VITE_RESUME_URL || "#"} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="px-8 py-3 rounded-full border-2 border-primary text-primary font-medium hover:bg-primary/10 transition-all"
+              >
+                View Resume
               </a>
             </div>
           </div>

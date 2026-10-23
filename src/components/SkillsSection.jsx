@@ -1,6 +1,22 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { X, Code2, Database, Terminal, Layout, BrainCircuit, Bot, Network, BarChart3, Cpu, Braces } from "lucide-react";
+import {
+  X,
+  Code2,
+  Database,
+  Terminal,
+  Layout,
+  BrainCircuit,
+  Bot,
+  Network,
+  BarChart3,
+  Cpu,
+  Braces,
+  Search,
+  Sparkles,
+  ExternalLink,
+  Layers,
+} from "lucide-react";
 import {
   SiC,
   SiCplusplus,
@@ -20,10 +36,6 @@ import {
   SiVercel,
   SiPostman,
   SiCanva,
-  SiMysql,
-  SiPrisma,
-  SiJest,
-  SiPython,
   SiFastapi,
   SiDocker,
   SiSupabase,
@@ -37,166 +49,615 @@ import {
   SiJsonwebtokens,
   SiLangchain,
   SiGithubactions,
+  SiPython,
+  SiPrisma,
+  SiJest,
 } from "react-icons/si";
 import { DiMsqlServer } from "react-icons/di";
 import { VscVscode } from "react-icons/vsc";
 
 const skills = [
-  // Languages
-  { name: "C", icon: <SiC className="text-blue-600 text-3xl" />, category: "Languages", description: "Foundational programming language for system-level development." },
-  { name: "C++", icon: <SiCplusplus className="text-blue-800 text-3xl" />, category: "Languages", description: "High-performance language used for game development and competitive programming." },
-  { name: "JavaScript", icon: <SiJavascript className="text-yellow-400 text-3xl" />, category: "Languages", description: "The core language of the web, enabling interactive experiences." },
-  { name: "TypeScript", icon: <SiTypescript className="text-blue-500 text-3xl" />, category: "Languages", description: "Typed superset of JavaScript for building robust and scalable applications." },
-  { name: "Python", icon: <SiPython className="text-blue-500 text-3xl" />, category: "Languages", description: "Interpreted, high-level, general-purpose programming language for web, scripting, and data science." },
+  // AI / LLM
+  {
+    name: "LangGraph",
+    icon: SiLangchain,
+    iconColor: "text-emerald-400",
+    glowColor: "rgba(52, 211, 153, 0.4)",
+    category: "AI/LLM",
+    level: "Advanced",
+    description: "Stateful, multi-agent orchestration for building robust, cyclical LLM graphs with conditional routing and dynamic state transitions.",
+    usedIn: ["BankingAI", "Pharma-AI"],
+  },
+  {
+    name: "Gemini API",
+    icon: SiGooglegemini,
+    iconColor: "text-sky-400",
+    glowColor: "rgba(56, 189, 248, 0.4)",
+    category: "AI/LLM",
+    level: "Advanced",
+    description: "Integrating Google's multimodal LLM for intelligent product generation, complex reasoning, and automated report summarization.",
+    usedIn: ["NexusMart", "Diagno"],
+  },
+  {
+    name: "Groq AI (LPU)",
+    icon: Cpu,
+    iconColor: "text-orange-400",
+    glowColor: "rgba(251, 146, 60, 0.4)",
+    category: "AI/LLM",
+    level: "Advanced",
+    description: "Leveraging ultra-low latency LPU inference for high-speed conversational banking flows and instant slot extraction.",
+    usedIn: ["BankingAI"],
+  },
+  {
+    name: "LangChain",
+    icon: SiLangchain,
+    iconColor: "text-green-500",
+    glowColor: "rgba(34, 197, 94, 0.4)",
+    category: "AI/LLM",
+    level: "Intermediate",
+    description: "Framework for chaining prompts, memory layers, semantic vector stores, and custom Python tool interfaces.",
+    usedIn: ["BankingAI", "Pharma-AI"],
+  },
+  {
+    name: "Multi-Agent Systems",
+    icon: Bot,
+    iconColor: "text-fuchsia-400",
+    glowColor: "rgba(232, 121, 249, 0.4)",
+    category: "AI/LLM",
+    level: "Advanced",
+    description: "Architecting collaborative networks where specialized agents (master planner, domain researchers, checkers) coordinate synchronously.",
+    usedIn: ["Pharma-AI", "BankingAI"],
+  },
+  {
+    name: "RedisVL",
+    icon: SiRedis,
+    iconColor: "text-red-500",
+    glowColor: "rgba(239, 68, 68, 0.4)",
+    category: "AI/LLM",
+    level: "Intermediate",
+    description: "Vector library for lightning-fast semantic message history and context memory management in stateful chatbot dialogues.",
+    usedIn: ["BankingAI"],
+  },
 
   // Frontend
-  { name: "HTML", icon: <SiHtml5 className="text-orange-600 text-3xl" />, category: "Frontend", description: "Standard markup language for creating web pages." },
-  { name: "CSS", icon: <SiCss3 className="text-blue-600 text-3xl" />, category: "Frontend", description: "Style sheet language used for describing the presentation of a document." },
-  { name: "React", icon: <SiReact className="text-sky-400 text-3xl" />, category: "Frontend", description: "JavaScript library for building user interfaces." },
-  { name: "Next.js", icon: <SiNextdotjs className="text-foreground text-3xl" />, category: "Frontend", description: "The React Framework for the Web." },
-  { name: "Tailwind CSS", icon: <SiTailwindcss className="text-teal-400 text-3xl" />, category: "Frontend", description: "A utility-first CSS framework for rapid UI development." },
-  { name: "Redux Toolkit", icon: <SiRedux className="text-purple-600 text-3xl" />, category: "Frontend", description: "The official, opinionated, batteries-included toolset for efficient Redux state management." },
-  { name: "React Router", icon: <SiReactrouter className="text-red-500 text-3xl" />, category: "Frontend", description: "Declarative routing library for React applications to enable dynamic, single-page navigation." },
-  { name: "Recharts", icon: <BarChart3 className="text-sky-500 text-3xl" />, category: "Frontend", description: "A Redefined Chart Library built with React and D3." },
+  {
+    name: "React 19",
+    icon: SiReact,
+    iconColor: "text-sky-400",
+    glowColor: "rgba(56, 189, 248, 0.4)",
+    category: "Frontend",
+    level: "Expert",
+    description: "Building responsive, component-driven user interfaces with the latest hooks, Server Actions, and optimal state lifecycles.",
+    usedIn: ["NexusMart", "BankingAI", "Diagno", "Hackathon 2026"],
+  },
+  {
+    name: "Next.js 15",
+    icon: SiNextdotjs,
+    iconColor: "text-neutral-100",
+    glowColor: "rgba(255, 255, 255, 0.3)",
+    category: "Frontend",
+    level: "Advanced",
+    description: "The React framework for the web: App Router, SSR, Server Components, API routes, and optimized image/font rendering.",
+    usedIn: ["NexusMart", "BankingAI", "Pharma-AI"],
+  },
+  {
+    name: "TypeScript",
+    icon: SiTypescript,
+    iconColor: "text-blue-400",
+    glowColor: "rgba(96, 165, 250, 0.4)",
+    category: "Frontend",
+    level: "Advanced",
+    description: "Strongly typed superset of JavaScript ensuring compile-time safety, clean interfaces, and resilient refactoring.",
+    usedIn: ["NexusMart", "BankingAI", "SecondBrain", "Pharma-AI"],
+  },
+  {
+    name: "Tailwind CSS",
+    icon: SiTailwindcss,
+    iconColor: "text-teal-400",
+    glowColor: "rgba(45, 212, 191, 0.4)",
+    category: "Frontend",
+    level: "Expert",
+    description: "Utility-first design system enabling custom glassmorphism, responsive viewports, and modern dark-mode palettes.",
+    usedIn: ["All Projects"],
+  },
+  {
+    name: "Redux Toolkit",
+    icon: SiRedux,
+    iconColor: "text-purple-400",
+    glowColor: "rgba(192, 132, 252, 0.4)",
+    category: "Frontend",
+    level: "Advanced",
+    description: "Predictable centralized state management for complex cart systems, seller dashboards, and multi-step workflows.",
+    usedIn: ["NexusMart"],
+  },
+  {
+    name: "React Router",
+    icon: SiReactrouter,
+    iconColor: "text-rose-400",
+    glowColor: "rgba(251, 113, 133, 0.4)",
+    category: "Frontend",
+    level: "Advanced",
+    description: "Declarative client-side routing, protected routes, loaders, and nested layout architectures for SPAs.",
+    usedIn: ["Diagno", "Hackathon 2026"],
+  },
+  {
+    name: "Recharts",
+    icon: BarChart3,
+    iconColor: "text-cyan-400",
+    glowColor: "rgba(34, 211, 238, 0.4)",
+    category: "Frontend",
+    level: "Intermediate",
+    description: "Declarative D3-based charting library for interactive analytics dashboards, sales charts, and diagnostics metrics.",
+    usedIn: ["NexusMart"],
+  },
 
   // Backend
-  { name: "Node.js", icon: <SiNodedotjs className="text-green-500 text-3xl" />, category: "Backend", description: "JavaScript runtime built on Chrome's V8 JavaScript engine." },
-  { name: "Express.js", icon: <SiExpress className="text-foreground text-3xl" />, category: "Backend", description: "Fast, unopinionated, minimalist web framework for Node.js." },
-  { name: "MongoDB", icon: <SiMongodb className="text-green-600 text-3xl" />, category: "Backend", description: "NoSQL database program, using JSON-like documents with optional schemas." },
-  { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-800 text-3xl" />, category: "Backend", description: "Open source object-relational database system." },
-  { name: "SQL Server", icon: <DiMsqlServer className="text-red-600 text-3xl" />, category: "Backend", description: "Relational database management system developed by Microsoft." },
-  { name: "FastAPI", icon: <SiFastapi className="text-teal-600 text-3xl" />, category: "Backend", description: "Modern, fast (high-performance), web framework for building APIs with Python." },
-  { name: "Supabase", icon: <SiSupabase className="text-emerald-500 text-3xl" />, category: "Backend", description: "Open source Firebase alternative providing PostgreSQL database, auth, and real-time APIs." },
-  { name: "JWT Authentication", icon: <SiJsonwebtokens className="text-pink-500 text-3xl" />, category: "Backend", description: "Secure industry-standard mechanism for stateless user sessions and access control." },
-  { name: "API Design", icon: <Network className="text-indigo-500 text-3xl" />, category: "Backend", description: "Architecting robust, clean, and scalable RESTful and GraphQL endpoints." },
-  { name: "REST APIs", icon: <Braces className="text-emerald-500 text-3xl" />, category: "Backend", description: "Designing and integrating standard RESTful endpoints for communication between client and server." },
+  {
+    name: "FastAPI",
+    icon: SiFastapi,
+    iconColor: "text-teal-400",
+    glowColor: "rgba(45, 212, 191, 0.4)",
+    category: "Backend",
+    level: "Advanced",
+    description: "High-performance Python asynchronous web framework with automatic OpenAPI docs, Pydantic validation, and fast throughput.",
+    usedIn: ["BankingAI", "Pharma-AI"],
+  },
+  {
+    name: "Node.js",
+    icon: SiNodedotjs,
+    iconColor: "text-emerald-400",
+    glowColor: "rgba(52, 211, 153, 0.4)",
+    category: "Backend",
+    level: "Advanced",
+    description: "Event-driven, non-blocking asynchronous runtime powering production server environments and microservices.",
+    usedIn: ["NexusMart", "Diagno", "SecondBrain"],
+  },
+  {
+    name: "Express.js",
+    icon: SiExpress,
+    iconColor: "text-neutral-200",
+    glowColor: "rgba(255, 255, 255, 0.3)",
+    category: "Backend",
+    level: "Advanced",
+    description: "Minimalist Node.js framework for crafting robust REST APIs, custom middleware, error handling, and file streaming.",
+    usedIn: ["Diagno", "SecondBrain"],
+  },
+  {
+    name: "PostgreSQL",
+    icon: SiPostgresql,
+    iconColor: "text-sky-500",
+    glowColor: "rgba(14, 165, 233, 0.4)",
+    category: "Backend",
+    level: "Advanced",
+    description: "Industrial-grade relational database management system with ACID compliance, JSONB support, and Neon cloud hosting.",
+    usedIn: ["NexusMart", "BankingAI", "Hackathon 2026"],
+  },
+  {
+    name: "MongoDB",
+    icon: SiMongodb,
+    iconColor: "text-emerald-500",
+    glowColor: "rgba(16, 185, 129, 0.4)",
+    category: "Backend",
+    level: "Advanced",
+    description: "Document-oriented NoSQL database for flexible data schemas, aggregation pipelines, and rapid prototyping.",
+    usedIn: ["Diagno", "SecondBrain"],
+  },
+  {
+    name: "Supabase",
+    icon: SiSupabase,
+    iconColor: "text-emerald-400",
+    glowColor: "rgba(52, 211, 153, 0.4)",
+    category: "Backend",
+    level: "Intermediate",
+    description: "Open source Backend-as-a-Service providing PostgreSQL, row-level security (RLS), auth, and real-time event subscriptions.",
+    usedIn: ["Hackathon 2026"],
+  },
+  {
+    name: "Prisma ORM",
+    icon: SiPrisma,
+    iconColor: "text-indigo-400",
+    glowColor: "rgba(129, 140, 248, 0.4)",
+    category: "Backend",
+    level: "Advanced",
+    description: "Type-safe ORM for Node.js and TypeScript providing declarative schema definitions and seamless schema migrations.",
+    usedIn: ["NexusMart"],
+  },
+  {
+    name: "JWT & Security",
+    icon: SiJsonwebtokens,
+    iconColor: "text-pink-400",
+    glowColor: "rgba(244, 114, 182, 0.4)",
+    category: "Backend",
+    level: "Advanced",
+    description: "Stateless authentication with secure HttpOnly cookies, refresh token rotation, and bcrypt password hashing.",
+    usedIn: ["Diagno", "SecondBrain"],
+  },
+  {
+    name: "REST API Design",
+    icon: Network,
+    iconColor: "text-violet-400",
+    glowColor: "rgba(167, 139, 250, 0.4)",
+    category: "Backend",
+    level: "Advanced",
+    description: "Architecting clean, versioned, scalable endpoints following RESTful standards with comprehensive error handling.",
+    usedIn: ["All Projects"],
+  },
 
-  // AI / LLM
-  { name: "Gemini API", icon: <SiGooglegemini className="text-blue-400 text-3xl" />, category: "AI/LLM", description: "Integrating state-of-the-art multimodal AI capabilities powered by Google Gemini." },
-  { name: "Groq AI", icon: <Cpu className="text-orange-500 text-3xl" />, category: "AI/LLM", description: "Ultra-fast AI inference platform utilizing LPU technology." },
-  { name: "LangGraph", icon: <SiLangchain className="text-green-600 text-3xl" />, category: "AI/LLM", description: "Stateful, orchestrator library for building complex, multi-agent LLM workflows." },
-  { name: "LangChain", icon: <SiLangchain className="text-green-600 text-3xl" />, category: "AI/LLM", description: "Framework designed to simplify the creation of applications using large language models." },
-  { name: "Agentic AI", icon: <BrainCircuit className="text-purple-500 text-3xl" />, category: "AI/LLM", description: "Designing autonomous AI agents capable of planning, tool execution, and reasoning." },
-  { name: "Multi-Agent Systems", icon: <Bot className="text-pink-500 text-3xl" />, category: "AI/LLM", description: "Orchestrated networks of collaborative AI agents working together to solve complex tasks." },
-  { name: "Redis", icon: <SiRedis className="text-red-600 text-3xl" />, category: "AI/LLM", description: "In-memory data structure store used as a database, cache, message broker, and vector database." },
+  // Languages
+  {
+    name: "C++",
+    icon: SiCplusplus,
+    iconColor: "text-blue-500",
+    glowColor: "rgba(59, 130, 246, 0.4)",
+    category: "Languages",
+    level: "Expert",
+    description: "Core language of choice for competitive programming, memory-optimized algorithms, and low-level system designs.",
+    usedIn: ["Competitive Programming", "Movie Ticket Booking System"],
+  },
+  {
+    name: "Python",
+    icon: SiPython,
+    iconColor: "text-amber-400",
+    glowColor: "rgba(251, 191, 36, 0.4)",
+    category: "Languages",
+    level: "Advanced",
+    description: "Versatile language utilized for AI agents, LangGraph orchestration, machine learning pipelines, and backend APIs.",
+    usedIn: ["BankingAI", "Pharma-AI", "Diagno"],
+  },
+  {
+    name: "JavaScript",
+    icon: SiJavascript,
+    iconColor: "text-yellow-400",
+    glowColor: "rgba(250, 204, 21, 0.4)",
+    category: "Languages",
+    level: "Expert",
+    description: "Deep knowledge of asynchronous event loop, promises, closures, and modern ES6+ language features.",
+    usedIn: ["All Projects"],
+  },
+  {
+    name: "C",
+    icon: SiC,
+    iconColor: "text-indigo-400",
+    glowColor: "rgba(129, 140, 248, 0.4)",
+    category: "Languages",
+    level: "Proficient",
+    description: "Foundational procedural programming, pointer arithmetic, memory allocation, and operating system basics.",
+    usedIn: ["Systems Programming & OS"],
+  },
 
-  // Tools and Platforms
-  { name: "Git", icon: <SiGit className="text-orange-500 text-3xl" />, category: "Tools and Platforms", description: "Distributed version control system." },
-  { name: "GitHub", icon: <SiGithub className="text-foreground text-3xl" />, category: "Tools and Platforms", description: "Platform for hosting and collaborating on code." },
-  { name: "VS Code", icon: <VscVscode className="text-blue-500 text-3xl" />, category: "Tools and Platforms", description: "Code editor redefined and optimized for building and debugging modern web and cloud applications." },
-  { name: "Postman", icon: <SiPostman className="text-orange-400 text-3xl" />, category: "Tools and Platforms", description: "API platform for building and using APIs." },
-  { name: "Vercel", icon: <SiVercel className="text-foreground text-3xl" />, category: "Tools and Platforms", description: "Platform for frontend frameworks and static sites." },
-  { name: "Prisma", icon: <SiPrisma className="text-foreground text-3xl" />, category: "Tools and Platforms", description: "Next-generation ORM for Node.js and TypeScript." },
-  { name: "Jest", icon: <SiJest className="text-red-700 text-3xl" />, category: "Tools and Platforms", description: "Delightful JavaScript Testing Framework with a focus on simplicity." },
-  { name: "Docker", icon: <SiDocker className="text-blue-500 text-3xl" />, category: "Tools and Platforms", description: "Platform for containerizing applications to ensure consistency across development and production." },
-  { name: "Stripe", icon: <SiStripe className="text-indigo-500 text-3xl" />, category: "Tools and Platforms", description: "Financial infrastructure for the internet, enabling secure and flexible online payment processing." },
-  { name: "Clerk Auth", icon: <SiClerk className="text-blue-600 text-3xl" />, category: "Tools and Platforms", description: "User management and authentication platform with pre-built UI components and SDKs." },
-  { name: "Vite", icon: <SiVite className="text-yellow-500 text-3xl" />, category: "Tools and Platforms", description: "Next-generation frontend build tool and dev server designed for speed." },
-  { name: "CI/CD", icon: <SiGithubactions className="text-blue-500 text-3xl" />, category: "Tools and Platforms", description: "Continuous Integration and Continuous Deployment pipelines for automated testing and deployment." },
-
-  // Design
-  { name: "Canva", icon: <SiCanva className="text-sky-400 text-3xl" />, category: "Tools and Platforms", description: "Graphic design platform that is used to create social media graphics, presentations, posters, documents and other visual content." },
+  // Tools & DevOps
+  {
+    name: "Docker",
+    icon: SiDocker,
+    iconColor: "text-sky-400",
+    glowColor: "rgba(56, 189, 248, 0.4)",
+    category: "Tools & DevOps",
+    level: "Intermediate",
+    description: "Containerizing microservices and managing multi-container stacks (Redis, API, Frontend) with Docker Compose.",
+    usedIn: ["BankingAI"],
+  },
+  {
+    name: "Git & GitHub",
+    icon: SiGithub,
+    iconColor: "text-neutral-200",
+    glowColor: "rgba(255, 255, 255, 0.3)",
+    category: "Tools & DevOps",
+    level: "Advanced",
+    description: "Version control workflows, branch protection, pull request reviews, and collaborative team development.",
+    usedIn: ["All Projects"],
+  },
+  {
+    name: "Stripe",
+    icon: SiStripe,
+    iconColor: "text-indigo-400",
+    glowColor: "rgba(129, 140, 248, 0.4)",
+    category: "Tools & DevOps",
+    level: "Intermediate",
+    description: "Integrating secure payment checkouts, webhook signature verification, and automated order fulfillment.",
+    usedIn: ["NexusMart"],
+  },
+  {
+    name: "Clerk Auth",
+    icon: SiClerk,
+    iconColor: "text-blue-400",
+    glowColor: "rgba(96, 165, 250, 0.4)",
+    category: "Tools & DevOps",
+    level: "Advanced",
+    description: "Complete user management system featuring multi-factor authentication, social OAuth, and role-based permissions.",
+    usedIn: ["NexusMart"],
+  },
+  {
+    name: "Vite",
+    icon: SiVite,
+    iconColor: "text-yellow-400",
+    glowColor: "rgba(250, 204, 21, 0.4)",
+    category: "Tools & DevOps",
+    level: "Advanced",
+    description: "Next-generation lightning-fast frontend tooling with instant HMR and optimized Rollup production bundles.",
+    usedIn: ["Hackathon 2026", "Portfolio"],
+  },
+  {
+    name: "Postman",
+    icon: SiPostman,
+    iconColor: "text-orange-400",
+    glowColor: "rgba(251, 146, 60, 0.4)",
+    category: "Tools & DevOps",
+    level: "Advanced",
+    description: "API testing, environment management, mock servers, and automated integration collection testing.",
+    usedIn: ["All Projects"],
+  },
+  {
+    name: "Vercel",
+    icon: SiVercel,
+    iconColor: "text-neutral-100",
+    glowColor: "rgba(255, 255, 255, 0.3)",
+    category: "Tools & DevOps",
+    level: "Advanced",
+    description: "Serverless deployments, edge network configurations, preview environments, and continuous delivery pipelines.",
+    usedIn: ["NexusMart", "Diagno", "Hackathon 2026"],
+  },
+  {
+    name: "CI/CD & Actions",
+    icon: SiGithubactions,
+    iconColor: "text-blue-400",
+    glowColor: "rgba(96, 165, 250, 0.4)",
+    category: "Tools & DevOps",
+    level: "Intermediate",
+    description: "Continuous integration pipelines for automated linting, test suites, and GitHub Pages deployments.",
+    usedIn: ["Portfolio", "NexusMart"],
+  },
 ];
 
 const categories = [
-  { id: "All", label: "All Skills", icon: <Code2 size={18} /> },
-  { id: "Languages", label: "Languages", icon: <Terminal size={18} /> },
-  { id: "Frontend", label: "Frontend", icon: <Layout size={18} /> },
-  { id: "Backend", label: "Backend", icon: <Database size={18} /> },
-  { id: "AI/LLM", label: "AI/LLM", icon: <BrainCircuit size={18} /> },
-  { id: "Tools and Platforms", label: "Tools and Platforms", icon: <VscVscode size={18} /> },
+  { id: "All", label: "All Skills", icon: Layers },
+  { id: "AI/LLM", label: "Agentic AI & LLMs", icon: BrainCircuit },
+  { id: "Frontend", label: "Frontend", icon: Layout },
+  { id: "Backend", label: "Backend", icon: Database },
+  { id: "Languages", label: "Languages", icon: Terminal },
+  { id: "Tools & DevOps", label: "Tools & DevOps", icon: Cpu },
 ];
 
 export const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedSkill, setSelectedSkill] = useState(null);
 
-  const filteredSkills = activeCategory === "All"
-    ? skills
-    : skills.filter(skill => skill.category === activeCategory);
+  // Lock body scroll when skill modal is open
+  useEffect(() => {
+    if (selectedSkill) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedSkill]);
+
+  // Escape key closes modal
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setSelectedSkill(null);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const filteredSkills = useMemo(() => {
+    return skills.filter((skill) => {
+      const matchesCategory =
+        activeCategory === "All" || skill.category === activeCategory;
+      const matchesSearch =
+        skill.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        skill.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        skill.category.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [activeCategory, searchQuery]);
 
   return (
-    <section id="skills" className="py-24 px-4 bg-background relative overflow-hidden">
-      <div className="container mx-auto max-w-6xl">
-        <h2 className="section-title">
-          My <span className="text-primary "> Skills</span>
-        </h2>
+    <section id="skills" className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto relative z-10">
+        
+        {/* Section Title */}
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-mono font-semibold mb-3">
+            <Code2 size={15} />
+            <span>TECHNICAL ARSENAL</span>
+          </div>
+          <h2 className="section-heading">
+            Skills & <span className="gradient-text font-black">Technologies</span>
+          </h2>
+          <p className="section-subheading">
+            A comprehensive overview of frameworks, languages, AI toolkits, and platforms I leverage to build scalable software.
+          </p>
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={cn(
-                "flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-300 border",
-                activeCategory === category.id
-                  ? "bg-primary text-primary-foreground border-primary shadow-[0_0_20px_hsl(var(--primary)/0.4)] scale-105"
-                  : "bg-card hover:bg-primary/10 border-border text-muted-foreground hover:text-primary hover:border-primary/50"
-              )}
-            >
-              {category.icon}
-              {category.label}
-            </button>
-          ))}
+          {/* Search Bar */}
+          <div className="max-w-md mx-auto mb-10 relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search technology (e.g. LangGraph, Next.js, Docker)..."
+              className="w-full pl-11 pr-10 py-3 rounded-full bg-secondary/60 border border-border/80 focus:border-primary focus:bg-background text-sm text-foreground placeholder:text-muted-foreground focus:outline-none transition-all shadow-sm focus:shadow-[0_0_20px_hsl(var(--primary)/0.25)]"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground p-1 rounded-full text-xs"
+              >
+                <X size={14} />
+              </button>
+            )}
+          </div>
+
+          {/* Category Tabs */}
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
+            {categories.map((cat) => {
+              const IconComp = cat.icon;
+              const isActive = activeCategory === cat.id;
+              const count =
+                cat.id === "All"
+                  ? skills.length
+                  : skills.filter((s) => s.category === cat.id).length;
+
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={cn(
+                    "flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 border cursor-pointer",
+                    isActive
+                      ? "bg-primary text-primary-foreground border-primary shadow-[0_0_20px_hsl(var(--primary)/0.4)] scale-105"
+                      : "bg-secondary/60 hover:bg-secondary border-border/60 text-muted-foreground hover:text-foreground"
+                  )}
+                >
+                  <IconComp size={15} />
+                  <span>{cat.label}</span>
+                  <span
+                    className={cn(
+                      "text-[10px] font-mono px-1.5 py-0.2 rounded-full",
+                      isActive
+                        ? "bg-white/20 text-white"
+                        : "bg-background/80 text-muted-foreground"
+                    )}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Skills Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {filteredSkills.map((skill, index) => (
-            <div
-              key={index}
-              onClick={() => setSelectedSkill(skill)}
-              className="group relative p-6 bg-card rounded-xl border border-border/50 hover:border-primary/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_10px_30px_-10px_hsl(var(--primary)/0.2)] cursor-pointer flex flex-col items-center gap-4"
-            >
-              <div className="p-4 rounded-full bg-secondary group-hover:bg-primary/10 transition-colors duration-300">
-                <div className="transform group-hover:scale-110 transition-transform duration-300">
-                  {skill.icon}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-5">
+          {filteredSkills.map((skill, index) => {
+            const IconComponent = skill.icon;
+            return (
+              <div
+                key={index}
+                onClick={() => setSelectedSkill(skill)}
+                className="glass-card p-5 flex flex-col items-center justify-between text-center gap-3 cursor-pointer group relative overflow-hidden border transition-all duration-300 hover:-translate-y-1.5"
+                style={{
+                  boxShadow: `0 8px 24px -10px ${skill.glowColor}`,
+                }}
+              >
+                {/* Subtle top accent bar */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: skill.glowColor }}
+                />
+
+                {/* Icon Container */}
+                <div className="p-3.5 rounded-2xl bg-secondary/80 group-hover:bg-primary/10 transition-colors duration-300 relative">
+                  <IconComponent
+                    className={cn("text-3xl transition-transform duration-300 group-hover:scale-115", skill.iconColor)}
+                  />
                 </div>
-              </div>
-              <span className="font-medium text-center text-sm md:text-base group-hover:text-primary transition-colors">
-                {skill.name}
-              </span>
 
-              {/* Hover Indicator */}
-              <div className="absolute inset-0 border-2 border-primary/0 rounded-xl group-hover:border-primary/20 transition-all duration-300 pointer-events-none"></div>
-            </div>
-          ))}
-        </div>
-      </div>
+                {/* Skill Name & Level */}
+                <div className="space-y-1">
+                  <h4 className="font-bold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors">
+                    {skill.name}
+                  </h4>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground bg-secondary/60 px-2 py-0.5 rounded-full inline-block">
+                    {skill.level}
+                  </span>
+                </div>
 
-      {/* Skill Detail Modal */}
-      {selectedSkill && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-          <div className="bg-card border border-primary/20 p-8 rounded-2xl max-w-md w-full shadow-2xl relative animate-scale-in">
-            <button
-              onClick={() => setSelectedSkill(null)}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary transition-colors"
-            >
-              <X size={20} />
-            </button>
-
-            <div className="flex flex-col items-center text-center gap-6">
-              <div className="p-6 rounded-full bg-primary/10 ring-4 ring-primary/5">
-                {selectedSkill.icon}
-              </div>
-              <div>
-                <h3 className="text-2xl font-bold mb-2">{selectedSkill.name}</h3>
-                <span className="px-3 py-1 rounded-full text-xs font-medium bg-secondary text-muted-foreground uppercase tracking-wider">
-                  {selectedSkill.category}
+                {/* Click for Info Hint */}
+                <span className="text-[10px] text-primary/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 font-mono">
+                  View details →
                 </span>
               </div>
-              <p className="text-muted-foreground leading-relaxed">
-                {selectedSkill.description}
-              </p>
+            );
+          })}
+        </div>
 
-              <button
-                onClick={() => setSelectedSkill(null)}
-                className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-medium hover:opacity-90 transition-opacity"
-              >
-                Close
-              </button>
+        {filteredSkills.length === 0 && (
+          <div className="text-center py-16 text-muted-foreground">
+            <p className="text-lg font-semibold">No skills found matching "{searchQuery}"</p>
+            <p className="text-sm mt-1">Try clearing the search or switching categories.</p>
+          </div>
+        )}
+
+      </div>
+
+      {/* Interactive Skill Detail Modal */}
+      {selectedSkill && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
+          onClick={() => setSelectedSkill(null)}
+        >
+          <div
+            className="glass-panel p-6 sm:p-8 rounded-3xl max-w-md w-full relative animate-scale-in text-left border-primary/30 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setSelectedSkill(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-secondary/80 hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+              aria-label="Close modal"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="flex items-center gap-4 mb-6">
+              <div className="p-4 rounded-2xl bg-secondary border border-border/80">
+                <selectedSkill.icon className={cn("text-4xl", selectedSkill.iconColor)} />
+              </div>
+              <div>
+                <h3 className="text-2xl font-black text-foreground">
+                  {selectedSkill.name}
+                </h3>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-full bg-primary/10 text-primary border border-primary/20">
+                    {selectedSkill.category}
+                  </span>
+                  <span className="text-xs font-mono text-muted-foreground">
+                    Proficiency: {selectedSkill.level}
+                  </span>
+                </div>
+              </div>
             </div>
+
+            <div className="space-y-4 mb-6">
+              <div>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-1.5 font-bold">
+                  Overview & Application
+                </h4>
+                <p className="text-foreground/90 text-sm leading-relaxed">
+                  {selectedSkill.description}
+                </p>
+              </div>
+
+              {selectedSkill.usedIn && selectedSkill.usedIn.length > 0 && (
+                <div>
+                  <h4 className="text-xs font-mono uppercase tracking-wider text-muted-foreground mb-2 font-bold">
+                    Applied in Projects:
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedSkill.usedIn.map((p, idx) => (
+                      <span
+                        key={idx}
+                        className="text-xs font-mono font-medium px-3 py-1 rounded-lg bg-secondary text-primary border border-primary/20"
+                      >
+                        {p}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={() => setSelectedSkill(null)}
+              className="w-full py-2.5 rounded-xl cosmic-btn-primary text-xs font-bold"
+            >
+              Got it
+            </button>
           </div>
         </div>
       )}

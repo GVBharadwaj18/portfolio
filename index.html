@@ -1,18 +1,62 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/portfolio/i-1.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="GVBharadwaj's portfolio website showcasing web projects in React, Next.js, FastAPI, Agentic AI, and competitive programming." />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <title>GVBharadwaj | Full-Stack Developer & AI Engineer</title>
-    <script type="module" crossorigin src="/portfolio/assets/index-VpW3LjxB.js"></script>
-    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-CPQBAcl0.css">
+    <meta name="theme-color" content="#030712" />
+    
+    <title>Gona Venkata Bharadwaj | Full-Stack Engineer & AI Systems Architect</title>
+    <meta
+      name="description"
+      content="Portfolio of Gona Venkata Bharadwaj — Full-Stack Engineer and Agentic AI Developer from NIT Silchar (CGPA 8.79). Explore projects in LangGraph, Next.js, FastAPI, and scalable cloud architectures."
+    />
+    <meta
+      name="keywords"
+      content="Bharadwaj Gona, GVBharadwaj18, Full-Stack Developer, AI Engineer, LangGraph, Next.js, React, FastAPI, NIT Silchar, Portfolio"
+    />
+    <meta name="author" content="Gona Venkata Bharadwaj" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gvbharadwaj18.github.io/portfolio/" />
+    <meta property="og:title" content="Gona Venkata Bharadwaj | Full-Stack Engineer & AI Architect" />
+    <meta
+      property="og:description"
+      content="Explore production-grade full-stack web applications and autonomous agentic AI systems engineered by Bharadwaj Gona."
+    />
+    <meta property="og:image" content="/portfolio/projects/hero-image.avif" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Gona Venkata Bharadwaj | Portfolio" />
+    <meta
+      property="twitter:description"
+      content="Full-Stack Engineer & Agentic AI Architect • NIT Silchar CSE"
+    />
+
+    <!-- Google Fonts Preconnect & Stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+
+    <!-- Script to avoid theme flash -->
+    <script>
+      (function() {
+        try {
+          const theme = localStorage.getItem('theme');
+          if (theme === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" crossorigin src="/portfolio/assets/index-qH5qXwQj.js"></script>
+    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-DshmajYb.css">
   </head>
-  <body>
-    <div id="root"></div>
+  <body class="bg-background text-foreground antialiased selection:bg-primary/30 selection:text-foreground">
+    <div id="root"></div>
   </body>
 </html>
